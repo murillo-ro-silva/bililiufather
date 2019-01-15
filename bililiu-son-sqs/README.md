@@ -11,7 +11,7 @@ The worker is an application tied to the parent project "Bililiu Father", create
 #### Setup environment variables
 
 ```
-export APPLICATION=ares
+export APPLICATION=bilili-son-sqs
 export ENV=<env>
 export PORT=<server-port>
 export APP_CORE_SIZE=<app_core_size>
