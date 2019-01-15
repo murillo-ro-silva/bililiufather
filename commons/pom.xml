@@ -1,0 +1,196 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>commons</artifactId>
+	<packaging>jar</packaging>
+
+	<name>commons</name>
+	<description>Commons objects between projetcs must be put here</description>
+
+	<parent>
+		<groupId>com.java.ms</groupId>
+		<artifactId>bililiufather</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>local.dependencies</id>
+			<name>local.dependencies</name>
+			<url>file:${project.basedir}/libs</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.aq</groupId>
+			<artifactId>oracle.aq</artifactId>
+			<version>10.1.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.xdb</groupId>
+			<artifactId>oracle.xdb</artifactId>
+			<version>10.2.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.xml</groupId>
+			<artifactId>oracle.xml</artifactId>
+			<version>10.2.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.ons</groupId>
+			<artifactId>oracle.ons</artifactId>
+			<version>10.2.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.ucp</groupId>
+			<artifactId>oracle.ucp</artifactId>
+			<version>12.2.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>orai18n</artifactId>
+			<version>11.2.0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.2.5</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180130</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-kinesis</artifactId>
+			<version>1.11.385</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>exec</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eluder.coveralls</groupId>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>4.3.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.9</version>
+					<configuration>
+						<excludes>
+							<exclude>**/apolo/commons/CommonsApplication.class</exclude>
+							<exclude>**/configuration/*.class</exclude>
+							<exclude>**/autoconfigure/*.class</exclude>
+							<exclude>**/entities/*.class</exclude>
+							<exclude>**/persistence/*.class</exclude>
+							<exclude>**/exceptions/*.class</exclude>
+							<exclude>**/repositories/*.class</exclude>
+							<exclude>**/notification/*.class</exclude>
+							<exclude>**/enums/*.class</exclude>
+							<exclude>**/stream/*.class</exclude>
+							<exclude>**/json/*.class</exclude>
+							<exclude>**/mappers/*.class</exclude>
+							<exclude>**/annotation/*.class</exclude>
+							<exclude>**/burzum/util/*.class</exclude>
+							<exclude>**/http/clients/*.class</exclude>
+							<exclude>**/loaders/MainDimensionLoader.class</exclude>
+						</excludes>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>report</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>prepare-integration-test-agent</id>
+							<goals>
+								<goal>prepare-agent-integration</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>generate-integration-test-report</id>
+							<goals>
+								<goal>report-integration</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

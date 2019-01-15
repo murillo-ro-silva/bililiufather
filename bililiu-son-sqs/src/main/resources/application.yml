@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: bililiu-son-sqs
+  metrics:
+    prometheus:
+      enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        
+env: ${ENV} || 'TEST'
+server:
+  port: ${PORT}
+  
+app:
+  thread:
+    coreSize: ${APP_CORE_SIZE}
+    maxSize: ${APP_MAX_SIZE}
+    capacity: ${APP_CAPACITY}
+    concurrency: ${APP_CONCURRENCY}
+    
+sqs:
+  queue:
+    name: ${SQS_QUEUE_NAME}
+    name-fallback: ${SQS_QUEUE_NAME_FALLBACK}
+    name-unknown: ${SQS_QUEUE_NAME_UNKNOWN}
+    region: ${SQS_REGION}
+    
+bililiu-endpoint:
+  captured:
+    delay: ${BILILIU_ENDPOINT_CAPTURED_DELAY}
+    attempts: ${BILILIU_ENDPOINT_CAPTURED_ATTEMPTS}   
+  client:
+    endpoint: ${BILILIU_ENDPOINT}
+    token: ${BILILIU_ENDPOINT_TOKEN}
+    connections: ${BILILIU_ENDPOINT_CONNECTIONS}
+    timeout: ${BILILIU_ENDPOINT_TIMEOUT}
+    retries: ${BILILIU_ENDPOINT_RETRIES}
+    
+credentials:
+  acesskey: ${CREDENTIALS_ACESSKEY}
+  secretkey: ${CREDENTIALS_SECRETKEY}
+  
+slack:
+  webhook: ${SLACK_ENDPOINT}
+  enabled: ${SLACK_ENABLED}
+    
