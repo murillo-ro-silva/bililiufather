@@ -107,35 +107,28 @@ public class BililiuEndpointClient {
 
 	public boolean createOrder(SaleType salesType, String body, String orderId, Integer eventId, String hash) {		
 		String endpoint = String.format("%s/orders/%s", this.baseUrl, salesType.getType());
-		
-		HttpHeaders httpHeaders = new HttpHeaders();	
-		httpHeaders.add("Hash",hash);
-		httpHeaders.add("Content-Type", "application/json");
-		
-		HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
+		HttpEntity<String> request = createHttpEntity(body, hash);
 		return requestWithRetries(endpoint, HttpMethod.POST, request, orderId, eventId, salesType);
 	}
 
 	public boolean updateOrder(SaleType salesType, String body, String orderId, Integer eventId, String hash) {
 		String endpoint = String.format("%s/orders/%s/%s", this.baseUrl, orderId, salesType.getType());
-		
-		HttpHeaders httpHeaders = new HttpHeaders();	
-		httpHeaders.add("Hash",hash);
-		httpHeaders.add("Content-Type", "application/json");
-		
-		HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
+		HttpEntity<String> request = createHttpEntity(body, hash);
 		return requestWithRetries(endpoint, HttpMethod.PATCH, request, orderId, eventId, salesType);
 	}
 
 	public boolean deleteOrder(SaleType salesType, String body, String orderId, Integer eventId, String hash) {		
 		String endpoint = String.format("%s/orders/%s/%s", this.baseUrl, orderId, salesType.getType());
-		
+		HttpEntity<String> request = createHttpEntity(body, hash);
+		return requestWithRetries(endpoint, HttpMethod.DELETE, request, orderId, eventId, salesType);
+	}
+
+	private HttpEntity<String> createHttpEntity(String body, String hash) {
 		HttpHeaders httpHeaders = new HttpHeaders();	
 		httpHeaders.add("Hash",hash);
 		httpHeaders.add("Content-Type", "application/json");
-		
-		HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
-		return requestWithRetries(endpoint, HttpMethod.DELETE, request, orderId, eventId, salesType);
+		httpHeaders.add("Authorization", this.token);
+		return new HttpEntity<>(body, httpHeaders);
 	}
 
 	private boolean requestWithRetries(String endpoint, HttpMethod method, HttpEntity<String> request, String orderId, Integer eventId, SaleType salesType) {
